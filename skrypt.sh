@@ -100,13 +100,10 @@ while [[ $# -gt 0 ]]; do
 done
 
 clone_repo_and_set_path() {
-    # Pobierz bieżący katalog
     current_dir=$(pwd)
 
-    # Klonuj repozytorium do bieżącego katalogu
     git clone REPOZYTORIUM .
 
-    # Dodaj bieżący katalog do zmiennej środowiskowej PATH
     export PATH="$current_dir:$PATH"
     echo "Ścieżka $current_dir została dodana do zmiennej PATH."
 }
@@ -121,6 +118,40 @@ while [[ $# -gt 0 ]]; do
             ;;
         *)
             echo "Nieznana flaga: $key. Użyj --init, aby sklonować repozytorium i ustawić ścieżkę w zmiennej PATH."
+            exit 1
+            ;;
+    esac
+    shift
+done
+
+#!/bin/bash
+
+create_errors() {
+    local num_errors=${1:-100}
+    mkdir -p errorx  
+
+    for ((i=1; i<=$num_errors; i++)); do
+        filename="error${i}.txt"
+        echo "Błąd $i" > "errorx/$filename"
+    done
+
+    echo "Utworzono $num_errors plików błędów w katalogu errorx."
+}
+
+while [[ $# -gt 0 ]]; do
+    key="$1"
+
+    case $key in
+        --error|-e)
+            if [[ -z $2 ]]; then
+                echo "Brak określonej liczby plików błędów. Użyj --error <liczba_plików> lub -e <liczba_plików>."
+                exit 1
+            fi
+            create_errors "$2"
+            exit 0
+            ;;
+        *)
+            echo "Nieznana flaga: $key. Użyj --error <liczba_plików>, -e <liczba_plików> lub --init, aby sklonować repozytorium i ustawić ścieżkę w zmiennej PATH."
             exit 1
             ;;
     esac
