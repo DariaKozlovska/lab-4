@@ -81,6 +81,8 @@ print_help() {
     echo "  --help      Wyświetla pomoc"
     echo "  --logs N    Tworzy N plików logowych"
     echo "  --date      Wyświetla dzisiejszą datę"
+    echo "  --init 	Klonuje repozytorium oraz ustawia ścieżkę"
+    echo "  --error N | -e N  Tworzy errorx/errorN.txt"
 }
 
 while [[ $# -gt 0 ]]; do
