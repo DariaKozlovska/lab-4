@@ -111,9 +111,4 @@ while [[ $# -gt 0 ]]; do
     shift
 done
 
-if [[ -n $num_logs ]]; then
-    echo "Tworzenie $num_logs plików logowych..."
-    # Tutaj dodaj kod do tworzenia plików logowych
-fi
-
 
