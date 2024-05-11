@@ -8,7 +8,7 @@ while [[ $# -gt 0 ]]; do
     key="$1"
 
     case $key in
-        --date -d)
+        --date | -d)
             show_date
             exit 0
             ;;
@@ -33,7 +33,7 @@ while [[ $# -gt 0 ]]; do
     key="$1"
 
     case $key in
-        --logs -l)
+        --logs | -l)
             create_logs
             exit 0
             ;;
@@ -59,7 +59,7 @@ while [[ $# -gt 0 ]]; do
     key="$1"
 
     case $key in
-        --logs)
+        --logs| -l)
             if [[ -z $2 ]]; then
                 echo "Brak określonej liczby plików. Użyj --logs <liczba_plików>."
                 exit 1
@@ -74,8 +74,6 @@ while [[ $# -gt 0 ]]; do
     esac
     shift
 done
-
-#!/bin/bash
 
 print_help() {
     echo "Użycie: ./skrypt.sh [OPCJE]"
@@ -101,5 +99,31 @@ while [[ $# -gt 0 ]]; do
     shift
 done
 
+clone_repo_and_set_path() {
+    # Pobierz bieżący katalog
+    current_dir=$(pwd)
 
+    # Klonuj repozytorium do bieżącego katalogu
+    git clone REPOZYTORIUM .
+
+    # Dodaj bieżący katalog do zmiennej środowiskowej PATH
+    export PATH="$current_dir:$PATH"
+    echo "Ścieżka $current_dir została dodana do zmiennej PATH."
+}
+
+while [[ $# -gt 0 ]]; do
+    key="$1"
+
+    case $key in
+        --init)
+            clone_repo_and_set_path
+            exit 0
+            ;;
+        *)
+            echo "Nieznana flaga: $key. Użyj --init, aby sklonować repozytorium i ustawić ścieżkę w zmiennej PATH."
+            exit 1
+            ;;
+    esac
+    shift
+done
 
