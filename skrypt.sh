@@ -75,45 +75,31 @@ while [[ $# -gt 0 ]]; do
     shift
 done
 
+#!/bin/bash
+
 print_help() {
     echo "Użycie: ./skrypt.sh [OPCJE]"
     echo "Dostępne opcje:"
-    echo "  --help, -h      Wyświetla pomoc"
-    echo "  --logs N, -l N  Tworzy N plików logowych"
-    echo "  --date, -d      Wyświetla dzisiejszą datę"
+    echo "  --help      Wyświetla pomoc"
+    echo "  --logs N    Tworzy N plików logowych"
+    echo "  --date      Wyświetla dzisiejszą datę"
 }
 
 while [[ $# -gt 0 ]]; do
     key="$1"
 
     case $key in
-        --help|-h)
+        --help)
             print_help
             exit 0
             ;;
-        --logs|-l)
-            if [[ -z $2 ]]; then
-                echo "Brak określonej liczby plików. Użyj --logs <liczba_plików> lub -l <liczba_plików>."
-                exit 1
-            fi
-            num_logs="$2"
-            shift
-            ;;
-        --date|-d)
-            echo "Dzisiejsza data: $(date +'%Y-%m-%d')"
-            exit 0
-            ;;
         *)
-            echo "Nieznana flaga: $key. Użyj --help lub -h, aby wyświetlić wszystkie możliwe opcje."
+            echo "Nieznana flaga: $key. Użyj --help, aby wyświetlić wszystkie możliwe opcje."
             exit 1
             ;;
     esac
     shift
 done
 
-if [[ -n $num_logs ]]; then
-    echo "Tworzenie $num_logs plików logowych..."
-    # Tutaj dodaj kod do tworzenia plików logowych
-fi
 
 
