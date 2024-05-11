@@ -79,3 +79,30 @@ while [[ $# -gt 0 ]]; do
     shift
 done
 
+#!/bin/bash
+
+print_help() {
+    echo "Użycie: ./skrypt.sh [OPCJE]"
+    echo "Dostępne opcje:"
+    echo "  --help      Wyświetla pomoc"
+    echo "  --logs N    Tworzy N plików logowych"
+    echo "  --date      Wyświetla dzisiejszą datę"
+}
+
+while [[ $# -gt 0 ]]; do
+    key="$1"
+
+    case $key in
+        --help)
+            print_help
+            exit 0
+            ;;
+        *)
+            echo "Nieznana flaga: $key. Użyj --help, aby wyświetlić wszystkie możliwe opcje."
+            exit 1
+            ;;
+    esac
+    shift
+done
+
+
